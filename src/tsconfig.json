@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -13,9 +13,11 @@
       "../node_modules/@types/"
     ]
   },
+  "types": ["core-js"],
   "compileOnSave": true,
   "exclude": [
     "node_modules/*",
-    "**/*-aot.ts"
+    "**/*-aot.ts",
+    "dist"
   ]
 }

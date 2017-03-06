@@ -3,4 +3,5 @@
 !/src/systemjs.config.js
 .idea
 node_modules
-
+dist
+npm-debug.log*

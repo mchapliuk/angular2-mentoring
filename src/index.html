@@ -1,4 +1,23 @@
 <!doctype html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="app.bundle.js"></script>
+</head>
+<body>
+<h1>Hello World</h1>
+
+<h3>DEV BUILD: <%=htmlWebpackPlugin.options.metadata.isDevBuild %></h3>
+<h3>PROD BUILD: <%=htmlWebpackPlugin.options.metadata.isProdBuild %></h3>
+
+<app>Is Loading...</app>
+
+<my-header></my-header>
+<my-courses>
+    <my-course></my-course>
+</my-courses>
+<my-footer></my-footer>
+</body>
 
 </html>
