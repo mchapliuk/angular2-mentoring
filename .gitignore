@@ -1,0 +1,6 @@
+/src/**/*.js
+/src/**/*.map
+!/src/systemjs.config.js
+.idea
+node_modules
+
