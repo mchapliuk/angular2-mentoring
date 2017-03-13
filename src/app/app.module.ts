@@ -2,9 +2,10 @@ import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent}  from './app.component';
-import {HeaderComponent, FooterComponent}  from './core';
-import {CourseComponent, CoursesComponent}  from './layout/courses';
-import {LoginComponent}  from './layout/login';
+// import {HeaderComponent, FooterComponent}  from './core';
+import {CoursesComponent}  from './layout/courses';
+import {FooterComponent} from './layout/footer';
+// import {LoginComponent}  from './layout/login';
 
 // Routes
 import {ROUTES} from './app.routes';
@@ -13,11 +14,10 @@ import {ROUTES} from './app.routes';
     imports: [BrowserModule],
     declarations: [
         AppComponent,
-        HeaderComponent,
+        // HeaderComponent,
         FooterComponent,
-        CourseComponent,
         CoursesComponent,
-        LoginComponent
+        // LoginComponent
     ],
     bootstrap: [AppComponent]
 })
