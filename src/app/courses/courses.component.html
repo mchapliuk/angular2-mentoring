@@ -1,0 +1,9 @@
+<div>
+    <ul class="courses">
+        <li class="course" *ngFor="let course of courses">
+            <my-course-detail
+                    [course]="course"
+                    (deleteId)="deleteCourse($event)"></my-course-detail>
+        </li>
+    </ul>
+</div>

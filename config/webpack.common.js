@@ -9,7 +9,7 @@ const PATHS = {
     dist: path.join(__dirname, '/../dist')
 };
 
-module.exports = function(options) {
+module.exports = function (options) {
     console.info('Processing COMMON webpack config....');
     return {
         entry: {
@@ -37,13 +37,16 @@ module.exports = function(options) {
                     loader: 'html-loader'
                 }, {
                     test: /\.css$/,
-                    use: ['to-string-loader', 'css-loader']
+                    use: ['css-loader']
                 }, {
                     test: /\.html$/,
                     use: 'raw-loader',
                     exclude: [
                         path.resolve(__dirname, '../src/index.html')
                     ]
+                }, {
+                    test: /\.(jpg|png|gif)$/,
+                    use: 'file-loader'
                 }
             ]
         },

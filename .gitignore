@@ -1,6 +1,6 @@
 /src/**/*.js
 /src/**/*.map
-!/src/systemjs.config.js
+!/systemjs.config.js
 .idea
 node_modules
 dist

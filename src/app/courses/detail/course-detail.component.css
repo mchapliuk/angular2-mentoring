@@ -1,0 +1,35 @@
+.course-detail {
+    vertical-align: top;
+}
+
+.course-info {
+    display: inline-block;
+    width: 65%;
+    padding: 15px;
+}
+
+.course-actions {
+    display: inline-block;
+    width: 20%;
+    float: right;
+}
+
+.course-actions .course-action-btn {
+    width: 80%;
+    padding: 5px;
+    float: right;
+}
+
+.course-action-btn button {
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+.course-title {
+    font-size: 1.5em;
+}
+
+.course-duration {
+    font-size: 1.5em;
+}

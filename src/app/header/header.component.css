@@ -1,0 +1,16 @@
+header {
+    border: 1px solid darkgrey;
+    height: 50px;
+    padding: 15px;
+    vertical-align: middle;
+    background-color: cornflowerblue;
+}
+
+header .header-main {
+    display: inline-block;
+}
+
+header .header-login {
+    display: inline-block;
+    float: right;
+}

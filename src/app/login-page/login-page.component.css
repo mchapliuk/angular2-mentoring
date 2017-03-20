@@ -1,0 +1,17 @@
+.login-form {
+    width: 50%;
+    margin: 150px auto;
+}
+
+.login-form {
+    display: table;
+}
+
+div.login, div.password, div.submit {
+    display: table-row;
+    margin: 15px;
+}
+
+div label, input {
+    display: table-cell;
+}

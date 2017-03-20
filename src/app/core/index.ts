@@ -1,2 +1,3 @@
-export * from './footer.component';
-export * from './header.component';
+export * from './course.interface';
+export * from './courses.service';
+export * from './user-info.interface';

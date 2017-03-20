@@ -1,0 +1,7 @@
+footer {
+    height: 50px;
+    text-align: center;
+    width: 100%;
+    border: 1px solid darkgrey;
+    background-color: cornflowerblue;
+}

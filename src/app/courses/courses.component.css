@@ -1,7 +1,12 @@
+.courses {
+    padding: 0;
+}
+
 li.course {
     border: 1px solid darkgrey;
     padding: 15px;
     list-style: none;
+    margin: 5px 0;
 }
 
 .course-title {
