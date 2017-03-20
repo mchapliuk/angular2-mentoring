@@ -3,13 +3,14 @@
  */
 import {Component, OnInit} from '@angular/core';
 
-import {Course, CoursesService} from '../core';
+import {Course} from '../course.interface';
+import {CoursesService} from '../courses.service';
 
 // TODO: use relative paths
 @Component({
     selector: 'my-courses',
-    templateUrl: 'src/app/courses/courses.component.html',
-    styleUrls: ['src/app/courses/courses.component.css']
+    templateUrl: 'src/app/courses/courses-list/courses.component.html',
+    styleUrls: ['src/app/courses/courses-list/courses.component.css']
 })
 
 export class CoursesComponent implements OnInit {

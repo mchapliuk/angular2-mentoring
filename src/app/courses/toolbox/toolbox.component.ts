@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 
+// TODO: use relative paths
 @Component({
     selector: 'my-toolbox',
-    templateUrl: './src/app/toolbox/toolbox.component.html',
-    styleUrls: ['./src/app/toolbox/toolbox.component.css']
+    templateUrl: './src/app/courses/toolbox/toolbox.component.html',
+    styleUrls: ['./src/app/courses/toolbox/toolbox.component.css']
 })
 
 export class ToolboxComponent {

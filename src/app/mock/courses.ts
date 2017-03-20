@@ -1,7 +1,7 @@
 /**
  * @file: temporary mock data as ts file. Will be replaced with json
  */
-import {Course} from '../core/course.interface';
+import {Course} from '../courses/course.interface';
 
 export const COURSES: Course[] = [
     {
