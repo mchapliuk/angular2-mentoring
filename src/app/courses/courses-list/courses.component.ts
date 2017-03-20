@@ -25,7 +25,12 @@ export class CoursesComponent implements OnInit {
     }
 
     public deleteCourse(id: number): void {
-        this.coursesService.removeCourse(id)
-            .then(() => console.log(`Course with id ${id} has been deleted`));
+        // Is window.confirm enough for now? Or create a modal window with ng2?
+        if (confirm('Are you sure you want to remove the course?')) {
+            this.coursesService.removeCourse(id)
+                .then(() => console.log(`Course with id ${id} has been deleted`));
+        } else {
+            console.log('Removing canceled');
+        }
     }
 }
