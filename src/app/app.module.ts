@@ -17,6 +17,7 @@ import {CoursesPageComponent} from './courses-page';
 
 // Services
 import {AuthService} from './auth/auth.service';
+import {LoaderBlockService, LoaderBlockComponent} from './loader-block';
 
 // Routes
 import {ROUTES} from './app.routes';
@@ -30,9 +31,10 @@ import {ROUTES} from './app.routes';
         LogoComponent,
         UserInfoComponent,
         LoginPageComponent,
-        CoursesPageComponent
+        CoursesPageComponent,
+        LoaderBlockComponent
     ],
-    providers: [AuthService],
+    providers: [AuthService, LoaderBlockService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

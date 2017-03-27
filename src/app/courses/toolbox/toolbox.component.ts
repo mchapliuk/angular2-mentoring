@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 // TODO: use relative paths
 @Component({
     selector: 'my-toolbox',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './src/app/courses/toolbox/toolbox.component.html',
     styleUrls: ['./src/app/courses/toolbox/toolbox.component.css']
 })

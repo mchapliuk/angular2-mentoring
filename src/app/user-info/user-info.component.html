@@ -1,4 +1,4 @@
-<div class="login-info" *ngIf="getIsLoggedIn()">
+<div class="login-info" *ngIf="userInfo">
     <div class="login-username">{{ userInfo.username }}</div>
     <div class="login-logoff">
         <a href="#" (click)="logoff()">logoff</a>

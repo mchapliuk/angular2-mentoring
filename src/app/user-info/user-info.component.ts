@@ -1,22 +1,42 @@
-import {Component, OnInit} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Input
+} from '@angular/core';
 
 import {UserInfo} from '../core';
 import {AuthService} from '../auth/auth.service';
 
 @Component({
     selector: 'my-login',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'src/app/user-info/user-info.component.html',
     styleUrls: ['src/app/user-info/user-info.component.html']
 })
 
-export class UserInfoComponent implements OnInit {
-    public userInfo: UserInfo;
+export class UserInfoComponent implements OnInit, OnDestroy {
+    @Input() public userInfo: UserInfo;
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService,
+                private changeDetector: ChangeDetectorRef) {
+        this.authService
+            .userInfo
+            .subscribe((userInfo: UserInfo) => {
+                this.userInfo = userInfo;
+                this.changeDetector.markForCheck();
+                console.info('USER INFO CMP: User Info received: %s', JSON.stringify(userInfo));
+            });
     }
 
     ngOnInit(): void {
-        this.userInfo = this.authService.getUserInfo();
+        console.info('USER INFO CMP: Component Initialized');
+    }
+
+    ngOnDestroy() {
+        console.info('USER INFO CMP destroyed');
     }
 
     public getIsLoggedIn(): boolean {

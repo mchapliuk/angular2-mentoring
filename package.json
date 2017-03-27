@@ -5,11 +5,13 @@
   "description": "Master package.json, the superset of all dependencies for all of the _example package.json files. See _boilerplate/package.json for example npm scripts.",
   "scripts": {
     "server": "npm run webpack-dev-server -- --inline --progress --port 8080",
+
     "start": "npm run server",
     "start:dev": "set NODE_ENV=dev && npm start",
     "start:prod": "set NODE_ENV=prod && npm start",
     "webpack": "node_modules\\.bin\\webpack",
-    "webpack-dev-server": "node_modules\\.bin\\webpack-dev-server"
+    "webpack-dev-server": "node_modules\\.bin\\webpack-dev-server",
+    "tslint": "node_modules\\.bin\\tslint"
   },
   "keywords": [],
   "author": "",
