@@ -21,3 +21,21 @@ li.course {
 .course-description {
     font-style: italic;
 }
+
+.upcoming-course {
+    border: 1px solid blue !important;
+    /*background-color: rgba(144, 171, 249, 0.23);*/
+}
+
+.fresh-course {
+    border: 1px solid #31e825 !important;
+    /*background-color: rgba(147, 249, 144, 0.23);*/
+}
+
+.no-courses {
+    text-align: center;
+    font-size: 1.5em;
+    border: 1px solid darkgray;
+    padding: 1em;
+    background-color: rgba(154, 166, 175, 0.41);
+}

@@ -5,7 +5,6 @@
   "description": "Master package.json, the superset of all dependencies for all of the _example package.json files. See _boilerplate/package.json for example npm scripts.",
   "scripts": {
     "server": "npm run webpack-dev-server -- --inline --progress --port 8080",
-
     "start": "npm run server",
     "start:dev": "set NODE_ENV=dev && npm start",
     "start:prod": "set NODE_ENV=prod && npm start",
@@ -23,6 +22,7 @@
     "@angular/core": "2.4.5",
     "@angular/forms": "2.4.5",
     "@angular/http": "2.4.5",
+    "@angular/material": "^2.0.0-beta.2",
     "@angular/platform-browser": "2.4.5",
     "@angular/platform-browser-dynamic": "2.4.5",
     "@angular/platform-server": "2.4.5",
@@ -67,7 +67,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
     "lodash": "^4.16.2",

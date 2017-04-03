@@ -1,11 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Course} from './course.interface';
-import {COURSES} from '../mock/courses';
+import { Course } from './course.interface';
+import { COURSES } from '../mock/courses';
 
-import {Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 
-import {LoaderBlockService} from '../loader-block';
+import { LoaderBlockService } from '../loader-block';
+
+import { FindCoursePipe } from '../core';
 
 /**
  * A Service manages Courses
@@ -14,7 +16,8 @@ import {LoaderBlockService} from '../loader-block';
 export class CoursesService {
     public courses: Subject<Course[]> = new Subject<Course[]>();
 
-    constructor(private loaderBlockService: LoaderBlockService) {
+    constructor(private loaderBlockService: LoaderBlockService,
+                private findCourse: FindCoursePipe) {
         console.log('Courses Service initialized and Courses are loaded');
         this.courses.next([...COURSES]);
     }
@@ -30,20 +33,13 @@ export class CoursesService {
         }, 1000);
     }
 
-    public createCourse(): void {
-        // to be done within the appropriate home task
-    }
-
-    public getCourse(id: number): void {
-        this.courses.next([COURSES.find((course: Course) => course.id === id)]);
-    }
-
+    /**
+     * Finds courses that matches given search query
+     * @param {string} searchText
+     */
     public findCourses(searchText: string): void {
-        this.courses.next([...COURSES.filter((course: Course) => course.title.indexOf(searchText) >= 0)]);
-    }
-
-    public updateCourse(id: number): void {
-        // to be done within the appropriate home task
+        let filteredCourses: Course[] = this.findCourse.transform([...COURSES], searchText);
+        this.courses.next(filteredCourses);
     }
 
     /**

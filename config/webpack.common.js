@@ -30,6 +30,7 @@ module.exports = function (options) {
             rules: [
                 {
                     test: /\.ts$/,
+                    exclude: /\.spec.ts$/,
                     loader: 'awesome-typescript-loader'
                 },
                 {
@@ -37,7 +38,7 @@ module.exports = function (options) {
                     loader: 'html-loader'
                 }, {
                     test: /\.css$/,
-                    use: ['css-loader']
+                    use: ['style-loader!css-loader']
                 }, {
                     test: /\.html$/,
                     use: 'raw-loader',

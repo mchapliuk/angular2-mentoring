@@ -4,8 +4,14 @@
 
 .course-info {
     display: inline-block;
-    width: 65%;
+    width: 75%;
     padding: 15px;
+}
+
+.course-description {
+    margin-top: 15px;
+    color: darkgrey;
+    font-size: 0.8em;
 }
 
 .course-actions {
@@ -23,13 +29,25 @@
 .course-action-btn button {
     width: 90%;
     margin: 0 auto;
-
 }
 
 .course-title {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .course-duration {
-    font-size: 1.5em;
+    margin-left: 5em;
+    font-size: 0.8em;
+}
+
+.course-date {
+    float: right;
+}
+
+.top-rated-container {
+    background-color: dimgray;
+}
+
+.top-rated {
+    color: darkgrey;
 }

@@ -8,9 +8,9 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 
-import {Course} from '../course.interface';
-import {CoursesService} from '../courses.service';
-import {LoaderBlockService} from '../../loader-block/loader-block.service';
+import { Course } from '../course.interface';
+import { CoursesService } from '../courses.service';
+import { LoaderBlockService } from '../../loader-block/loader-block.service';
 
 // TODO: use relative paths
 @Component({
