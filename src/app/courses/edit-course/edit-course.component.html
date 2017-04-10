@@ -1,0 +1,27 @@
+<form>
+    <div class="row">
+        <label for="title">Title</label>
+        <input type="text" id="title"/>
+    </div>
+    <div class="row">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+    </div>
+    <div class="row">
+        <label>Date</label>
+        <course-date></course-date>
+    </div>
+    <div class="row">
+        <label>Duration</label>
+        <course-duration></course-duration>
+    </div>
+    <!--Skip it for now-->
+    <!--<div class="row">-->
+        <!--<label for="authors">Authors</label>-->
+        <!--<course-authors></course-authors>-->
+    <!--</div>-->
+    <div class="row">
+        <button>Save</button>
+        <button (click)="cancel()">Cancel</button>
+    </div>
+</form>

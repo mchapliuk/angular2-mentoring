@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-import {UserInfo} from '../core';
+import { UserInfo } from '../core';
 
 const LOGIN_LS_KEY = 'mch_login';
 
@@ -14,7 +14,7 @@ const LOGIN_LS_KEY = 'mch_login';
 @Injectable()
 export class AuthService {
     private isLoggedIn: boolean;
-    public userInfo: Subject<UserInfo> = new BehaviorSubject<UserInfo>(null);
+    public userInfo: ReplaySubject<UserInfo> = new ReplaySubject<UserInfo>(null);
 
     constructor() {
         this.isLoggedIn = !!localStorage[LOGIN_LS_KEY];
@@ -45,7 +45,7 @@ export class AuthService {
     public logoff(): void {
         this.isLoggedIn = false;
         localStorage.removeItem(LOGIN_LS_KEY);
-        this.userInfo.next();
+        this.userInfo.next(null);
         console.log('AUTH SERVICE: User is logged off');
     }
 

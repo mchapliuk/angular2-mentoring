@@ -26,26 +26,31 @@ export class CoursesComponent implements OnInit {
     constructor(private coursesService: CoursesService,
                 private loaderBlockService: LoaderBlockService,
                 private changeDetector: ChangeDetectorRef) {
-        this.coursesService.courses.subscribe((courses: Course[]) => {
-            this.courses = courses;
-            this.changeDetector.markForCheck();
-        });
     }
 
     ngOnInit(): void {
         console.log('Courses Component is initialized');
         this.getCourses();
+        this.changeDetector.markForCheck();
     }
 
     public deleteCourse(id: number): void {
         if (confirm('Are you sure you want to remove the course?')) {
             this.coursesService.removeCourse(id);
+            this.getCourses();
         } else {
             console.log('Removing was canceled');
         }
     }
 
+    /** Privates */
     private getCourses(): void {
-        this.coursesService.getCourses();
+        this.courses = [];
+        this.coursesService
+            .getCourses()
+            .filter((course: Course) => new Date(course.creationDate) > new Date())
+            .subscribe((course: Course)=> {
+                this.courses.push(course);
+            });
     }
 }

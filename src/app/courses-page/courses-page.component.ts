@@ -1,4 +1,5 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { CoursesService } from '../courses/courses.service';
 
 @Component({
     selector: 'courses-page',
@@ -11,11 +12,20 @@ import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/co
  * Home Page of the App. The Courses Page
  */
 export class CoursesPageComponent implements OnInit, OnDestroy {
-    ngOnInit():void {
+    constructor(private coursesService: CoursesService,
+                private changeDetector: ChangeDetectorRef) {
+        this.changeDetector.markForCheck();
+    }
+
+    public getIsEditingMode(): boolean {
+        return this.coursesService.getIsEditingMode();
+    }
+
+    ngOnInit(): void {
         console.log('Courses Page initialized');
     }
 
-    ngOnDestroy():void {
+    ngOnDestroy(): void {
         console.log('Courses Page destroyed');
     }
 }

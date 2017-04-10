@@ -6,6 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { CoursesComponent } from './courses-list/courses.component';
 import { CourseDetailComponent }  from './detail/course-detail.component';
 import { ToolboxComponent } from './toolbox/toolbox.component';
+import { EditCourseComponent } from './edit-course/edit-course.component';
+import { CourseDateComponent } from './edit-course/course-date/course-date.component';
+import { CourseDurationComponent } from './edit-course/course-duration/course-duration.component';
+
 
 // Directives
 import { HighlightCourseDirective } from "./highlight-course.directive";
@@ -29,11 +33,14 @@ import { FindCoursePipe } from "../core/find-course.pipe";
         CoursesComponent,
         CourseDetailComponent,
         ToolboxComponent,
+        EditCourseComponent,
+        CourseDateComponent,
+        CourseDurationComponent,
         HighlightCourseDirective,
         FormatMinutesPipe,
         OrderByPipe
     ],
-    exports: [CoursesComponent, ToolboxComponent],
+    exports: [CoursesComponent, ToolboxComponent, EditCourseComponent],
     providers: [CoursesService, FindCoursePipe]
 })
 

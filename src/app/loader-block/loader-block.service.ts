@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/share';
 
 @Injectable()
 export class LoaderBlockService {
-    public status: Subject<boolean> = new Subject();
+    public status: ReplaySubject<boolean> = new ReplaySubject();
     private activeState: boolean = false;
 
     public start(): void {

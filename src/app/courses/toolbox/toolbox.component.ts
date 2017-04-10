@@ -23,5 +23,6 @@ export class ToolboxComponent {
 
     public addCourse(): void {
         console.log('Add Course is pressed');
+        this.coursesService.goToAddCourse();
     }
 }

@@ -1,6 +1,9 @@
 <my-header></my-header>
-<div class="courses-page">
+<div class="courses-page" *ngIf="!getIsEditingMode()">
     <my-toolbox></my-toolbox>
     <my-courses></my-courses>
+</div>
+<div *ngIf="getIsEditingMode()">
+    <edit-course></edit-course>
 </div>
 <my-footer></my-footer>
