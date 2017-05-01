@@ -1,6 +1,8 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from '@angular/material';
+import { HttpModule, ConnectionBackend, RequestOptions } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 
 // Feature modules
@@ -23,13 +25,20 @@ import { LoaderBlockService, LoaderBlockComponent } from './loader-block';
 
 // Routes
 import { ROUTES } from './app.routes';
+import { AuthorizedHttp } from './core/authorized-http.service';
+
+import { AuthGuard } from "./guards/auth.guard";
+import { AuthResolver } from "./guards/auth.resolver";
+import AuthHttp from "./core/http-interceptor.service";
 
 
 @NgModule({
     imports: [
         BrowserModule,
         CoursesModule,
-        MaterialModule
+        MaterialModule,
+        HttpModule,
+        RouterModule.forRoot(ROUTES)
     ],
     declarations: [
         AppComponent,
@@ -41,7 +50,13 @@ import { ROUTES } from './app.routes';
         CoursesPageComponent,
         LoaderBlockComponent
     ],
-    providers: [AuthService, LoaderBlockService],
+    providers: [
+        AuthService,
+        AuthGuard,
+        AuthResolver,
+        AuthHttp,
+        LoaderBlockService,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

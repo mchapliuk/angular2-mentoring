@@ -22,13 +22,13 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
     constructor(private authService: AuthService,
                 private changeDetector: ChangeDetectorRef) {
-        this.authService
-            .userInfo
-            .subscribe((userInfo: UserInfo) => {
-                this.userInfo = userInfo;
-                this.changeDetector.markForCheck();
-                console.info('USER INFO CMP: User Info received: %s', JSON.stringify(userInfo));
-            });
+        // this.authService
+        //     .userInfo
+        //     .subscribe((userInfo: UserInfo) => {
+        //         this.userInfo = userInfo;
+        //         this.changeDetector.markForCheck();
+        //         console.info('USER INFO CMP: User Info received: %s', JSON.stringify(userInfo));
+        //     });
     }
 
     ngOnInit(): void {
@@ -40,10 +40,11 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
 
     public getIsLoggedIn(): boolean {
-        return this.authService.getIsLoggedIn();
+        return false
+        // return this.authService.getIsLoggedIn();
     }
 
     public logoff(): void {
-        this.authService.logoff();
+       // this.authService.logoff();
     }
 }

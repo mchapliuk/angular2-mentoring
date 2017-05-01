@@ -12,6 +12,6 @@ import { Course } from '../courses/course.interface';
 export class FindCoursePipe implements PipeTransform {
     transform(courses: Course[], query: string): Course[] {
         debugger;
-        return courses.filter((course: Course) => course.title.indexOf(query) >= 0);
+        return courses.filter((course: Course) => course.name.indexOf(query) >= 0);
     }
 }

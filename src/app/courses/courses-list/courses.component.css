@@ -39,3 +39,7 @@ li.course {
     padding: 1em;
     background-color: rgba(154, 166, 175, 0.41);
 }
+
+.show-more {
+    text-align: center;
+}

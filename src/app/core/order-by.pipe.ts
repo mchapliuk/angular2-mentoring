@@ -13,7 +13,7 @@ import { Course } from '../courses/course.interface';
 export class OrderByPipe {
     transform(courses: Course[]): Course[] {
         return courses.sort((a: Course, b: Course) => {
-            return +(new Date(a.creationDate)) - +(new Date(b.creationDate));
+            return +(new Date(a.date)) - +(new Date(b.date));
         });
     }
 }

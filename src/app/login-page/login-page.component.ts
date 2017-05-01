@@ -1,32 +1,39 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../auth/auth.service';
-import {UserInfo} from '../core';
-import {LoaderBlockService} from '../loader-block/loader-block.service';
-
-const USER_INFO_MOCK: UserInfo = {
-    username: 'mchapliuk'
-};
+import { AuthService } from '../auth/auth.service';
+import { UserInfo } from '../core';
+import { LoaderBlockService } from '../loader-block/loader-block.service';
 
 @Component({
     selector: 'login-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'src/app/login-page/login-page.component.html',
     styleUrls: ['src/app/login-page/login-page.component.css']
 })
 
 export class LoginPageComponent implements OnInit, OnDestroy {
     constructor(private authService: AuthService,
-                private loaderBlockService: LoaderBlockService) {
+                private loaderBlockService: LoaderBlockService,
+                private router: Router) {
     }
 
-    public login(): void {
-        this.loaderBlockService.start();
-        setTimeout(() => {
-            //TODO: pass parameters within appropriate home task
-            this.authService.login(USER_INFO_MOCK.username);
-        }, 2000)
-
+    public login(username: HTMLInputElement, password: HTMLInputElement): void {
+        this.authService.login(username.value, password.value)
+            .subscribe(
+                (user: any) => {
+                    this.router.navigate(['/courses']);
+                    this.loaderBlockService.stop()
+                },
+                () => {
+                    console.error('error');
+                    this.loaderBlockService.stop()
+                },
+                () => {
+                    console.log('DOne');
+                    this.loaderBlockService.stop()
+                }
+            )
     }
 
     ngOnInit(): void {

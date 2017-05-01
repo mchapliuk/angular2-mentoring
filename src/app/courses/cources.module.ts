@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // Components
-import { CoursesComponent } from './courses-list/courses.component';
 import { CourseDetailComponent }  from './detail/course-detail.component';
-import { ToolboxComponent } from './toolbox/toolbox.component';
+import { CoursesComponent } from './courses-list/courses.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 import { CourseDateComponent } from './edit-course/course-date/course-date.component';
 import { CourseDurationComponent } from './edit-course/course-duration/course-duration.component';
@@ -32,7 +31,6 @@ import { FindCoursePipe } from "../core/find-course.pipe";
     declarations: [
         CoursesComponent,
         CourseDetailComponent,
-        ToolboxComponent,
         EditCourseComponent,
         CourseDateComponent,
         CourseDurationComponent,
@@ -40,7 +38,7 @@ import { FindCoursePipe } from "../core/find-course.pipe";
         FormatMinutesPipe,
         OrderByPipe
     ],
-    exports: [CoursesComponent, ToolboxComponent, EditCourseComponent],
+    exports: [CoursesComponent, EditCourseComponent],
     providers: [CoursesService, FindCoursePipe]
 })
 

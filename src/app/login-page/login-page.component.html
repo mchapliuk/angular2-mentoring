@@ -3,14 +3,14 @@
     <form class="login-form">
         <div class="login">
             <label for="username">Login</label>
-            <input type="text" class="username" id="username"/>
+            <input type="text" class="username" id="username" #username/>
         </div>
         <div class="password">
             <label for="password">Password</label>
-            <input type="password" id="password" class="password"/>
+            <input type="password" id="password" class="password" #password/>
         </div>
         <div class="submit">
-            <button md-b (click)="login()">Log In</button>
+            <button type="button" md-b (click)="login(username, password)">Log In</button>
         </div>
     </form>
 </div>

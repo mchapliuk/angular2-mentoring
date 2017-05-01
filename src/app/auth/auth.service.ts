@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -6,77 +7,47 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { UserInfo } from '../core';
 
+import { BASE_API_URL } from '../config/config';
+// import { AuthorizedHttp } from "../core/authorized-http.service";
+import { Subscription, BehaviorSubject } from "rxjs";
+
 const LOGIN_LS_KEY = 'mch_login';
+const LOGIN_URL = `${BASE_API_URL}/auth/login`;
+const USER_URL = `${BASE_API_URL}/auth/userinfo`;
+
+import 'rxjs/add/operator/map'
 
 /**
  * AuthService managed authentication
  */
 @Injectable()
 export class AuthService {
-    private isLoggedIn: boolean;
-    public userInfo: ReplaySubject<UserInfo> = new ReplaySubject<UserInfo>(null);
+    public isLoggedIn: boolean;
 
-    constructor() {
+    constructor(private http: Http/*, private authHttp: AuthorizedHttp*/) {
         this.isLoggedIn = !!localStorage[LOGIN_LS_KEY];
-        if (this.isLoggedIn) {
-            this.userInfo.next(this.readUserInfo());
-        }
     }
 
-    /**
-     * Logs a User in and publish an Event with User's data for subscribers
-     * @param {string} userName - User's Name
-     * @param {string} password - User's Password
-     */
-    public login(userName?: string, password?: string): void {
-        this.isLoggedIn = true;
-        this.storeUserInfo({
-            username: userName,
+    public login(login: string, password: string): Observable<Subscription> {
+        return this.http.post(LOGIN_URL, {
+            login,
             password
-        });
-
-        // Send UserInfo message
-        this.userInfo.next(this.readUserInfo());
+        }).map((res: Response) => {
+            let user = res.json();
+            localStorage.setItem(LOGIN_LS_KEY, user.token);
+            this.setIsLoggedIn(true);
+            return user.token
+        })/*.flatMap(() => {
+            return this.http.get(USER_URL).map((userResponse: Response) => userResponse.json())
+        })*/
     }
 
-    /**
-     * Remove the User's record and publish an Event for subscribers
-     */
     public logoff(): void {
-        this.isLoggedIn = false;
         localStorage.removeItem(LOGIN_LS_KEY);
-        this.userInfo.next(null);
-        console.log('AUTH SERVICE: User is logged off');
     }
 
-    /**
-     * Returns true if any User is logged in, or nobody logged in
-     * @returns {boolean}
-     */
-    public getIsLoggedIn(): boolean {
-        return this.isLoggedIn;
-    }
 
-    /**
-     * Returns logged in User's information
-     * @returns {Observable<UserInfo>}
-     */
-    public getUserInfo(): Observable<UserInfo> {
-        return this.userInfo.asObservable();
-    }
-
-    /**
-     * Privates
-     */
-    private storeUserInfo(userInfo: UserInfo): void {
-        localStorage.setItem(LOGIN_LS_KEY, JSON.stringify(userInfo));
-    }
-
-    /**
-     * Reads UserInfo from localStorage
-     * @private
-     */
-    private readUserInfo(): UserInfo|undefined {
-        return localStorage[LOGIN_LS_KEY] && JSON.parse(localStorage[LOGIN_LS_KEY]);
+    private setIsLoggedIn(value: boolean): void {
+        this.isLoggedIn = value;
     }
 }

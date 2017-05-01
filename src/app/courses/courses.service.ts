@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { RequestOptions, RequestMethod, Request, Response, URLSearchParams } from '@angular/http';
+import AuthHttp from "../core/http-interceptor.service";
 
 import { Course } from './course.interface';
-import { COURSES } from '../mock/courses';
-
-import { Subject } from 'rxjs/Subject';
 
 import { LoaderBlockService } from '../loader-block';
 
@@ -12,53 +11,79 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
 
+import { BASE_API_URL } from '../config/config';
+const COURSES_URL = `${BASE_API_URL}/courses`;
+const COURSES_SEARCH_URL = `${BASE_API_URL}/courses/search`;
+
+const PAGE_SIZE = 5;
+
 /**
  * A Service manages Courses
  */
 @Injectable()
 export class CoursesService {
-    public courses: Observable<Course> = Observable.of(...COURSES);
     public isEditingMode: boolean = false;
+    private pageNum: number = 0;
 
     constructor(private loaderBlockService: LoaderBlockService,
-                private findCourse: FindCoursePipe) {
-        console.log('Courses Service initialized and Courses are loaded');
+                private findCourse: FindCoursePipe,
+                private http: AuthHttp) {
     }
 
-    /**
-     * Publish Courses
-     */
-    public getCourses(): Observable<Course> {
-        return this.getCoursesObservable();
+    public getCourses(): Observable<Course[]> {
+        return this.fetchCourses();
+    }
+
+    public getNextCourses(): Observable<Course[]> {
+        this.pageNum++;
+        return this.fetchCourses();
     }
 
     /**
      * Finds courses that matches given search query
      * @param {string} searchText
      */
-    public findCourses(searchText: string): Observable<Course> {
-        return this.courses
-            .filter((course: Course) => course.title.indexOf(searchText) >= 0);
+    public findCourses(searchText: string): Observable<Course[]> {
+        let options = new RequestOptions();
+        options.method = RequestMethod.Get;
+        options.url = COURSES_SEARCH_URL;
+
+        let urlParams = new URLSearchParams();
+        urlParams.set('searchName', searchText);
+        options.search = urlParams;
+        let request = new Request(options);
+
+        return this.http
+            .request(request)
+            .map((res: Response) => res.json() as Course[]);
     }
 
-    /**
-     * Removes Course by given ID from collection
-     * @param {Number} id - Identifier of the Course
-     */
-    public removeCourse(id: number): Observable<Course> {
-        let indexOfCourse: number;
-        // TODO: Do better!
-        COURSES.forEach((course: Course, index: number) => {
-            if (course.id === id) {
-                indexOfCourse = index;
-                return;
-            }
-        });
+    public deleteCourse(id: string|number): Observable<Course[]> {
+        let options = new RequestOptions();
+        options.method = RequestMethod.Delete;
+        options.url = `${COURSES_URL}/${id}`;
 
-        COURSES.splice(indexOfCourse, 1);
+        let request = new Request(options);
 
-        return this.getCoursesObservable();
-        //this.loaderBlockService.start();
+        return this.http
+            .request(request)
+            .map((res: Response) => res.json() as Course[]);
+    }
+
+    private fetchCourses(): Observable<Course[]> {
+        let options = new RequestOptions();
+        options.method = RequestMethod.Get;
+        options.url = COURSES_URL;
+
+        let urlParams = new URLSearchParams();
+        urlParams.set('start', '' + this.pageNum);
+        urlParams.set('count', '' + PAGE_SIZE);
+        options.search = urlParams;
+        let request = new Request(options);
+
+        return this.http
+            .request(request)
+            .map((res: Response) => res.json());
     }
 
     public goToAddCourse(): void {
@@ -71,10 +96,5 @@ export class CoursesService {
 
     public getIsEditingMode(): boolean {
         return this.isEditingMode;
-    }
-
-    /** Privates */
-    private getCoursesObservable(): Observable<Course> {
-        return Observable.of(...COURSES);
     }
 }

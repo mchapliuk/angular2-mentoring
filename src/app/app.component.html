@@ -1,5 +1,4 @@
 <loader-block></loader-block>
 <div class="my-app">
-    <login-page *ngIf="!getIsLoggedIn()"></login-page>
-    <courses-page *ngIf="getIsLoggedIn()"></courses-page>
+    <router-outlet></router-outlet>
 </div>

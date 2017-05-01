@@ -1,6 +1,4 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-
-import {AuthService} from './auth/auth.service';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'my-app',
@@ -13,10 +11,5 @@ import {AuthService} from './auth/auth.service';
  * Root App component
  */
 export class AppComponent {
-    constructor(private authService: AuthService) {
-    }
 
-    public getIsLoggedIn(): boolean {
-        return this.authService.getIsLoggedIn();
-    }
 }

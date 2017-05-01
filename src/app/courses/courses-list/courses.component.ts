@@ -4,7 +4,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef
 } from '@angular/core';
 
@@ -12,16 +11,18 @@ import { Course } from '../course.interface';
 import { CoursesService } from '../courses.service';
 import { LoaderBlockService } from '../../loader-block/loader-block.service';
 
-// TODO: use relative paths
 @Component({
     selector: 'my-courses',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'src/app/courses/courses-list/courses.component.html',
-    styleUrls: ['src/app/courses/courses-list/courses.component.css']
+    styleUrls: [
+        'src/app/courses/courses-list/courses.component.css',
+        'src/app/courses/courses-list/toolbox.component.css'
+    ]
 })
 
 export class CoursesComponent implements OnInit {
     public courses: Course[] = [];
+    public searchName: string = '';
 
     constructor(private coursesService: CoursesService,
                 private loaderBlockService: LoaderBlockService,
@@ -29,28 +30,47 @@ export class CoursesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('Courses Component is initialized');
-        this.getCourses();
-        this.changeDetector.markForCheck();
+        this.coursesService
+            .getCourses()
+            .subscribe((courses: Course[])=> {
+                this.courses = courses;
+                this.changeDetector.detectChanges();
+            });
+    }
+
+    public loadMoreCourses(): void {
+        this.coursesService
+            .getNextCourses()
+            .subscribe((courses: Course[])=> {
+                this.courses = this.courses.concat(courses);
+                this.changeDetector.detectChanges();
+            })
     }
 
     public deleteCourse(id: number): void {
         if (confirm('Are you sure you want to remove the course?')) {
-            this.coursesService.removeCourse(id);
-            this.getCourses();
+            this.coursesService.deleteCourse(id)
+                .subscribe(() => {
+                    this.coursesService
+                        .getCourses()
+                        .subscribe((courses: Course[])=> {
+                            this.courses = courses;
+                            this.changeDetector.detectChanges();
+                        });
+                })
         } else {
             console.log('Removing was canceled');
         }
     }
 
-    /** Privates */
-    private getCourses(): void {
-        this.courses = [];
+    public searchCourse(): void {
         this.coursesService
-            .getCourses()
-            .filter((course: Course) => new Date(course.creationDate) > new Date())
-            .subscribe((course: Course)=> {
-                this.courses.push(course);
+            .findCourses(this.searchName)
+            .subscribe((courses: Course[])=> {
+                this.courses = courses;
+                this.changeDetector.detectChanges();
             });
+
+        this.searchName = '';
     }
 }
