@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../auth/auth.service';
 import { UserInfo } from '../core';
@@ -7,26 +8,37 @@ import { LoaderBlockService } from '../loader-block/loader-block.service';
 
 @Component({
     selector: 'login-page',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'src/app/login-page/login-page.component.html',
     styleUrls: ['src/app/login-page/login-page.component.css']
 })
 
 export class LoginPageComponent implements OnInit, OnDestroy {
+    public loginForm: FormGroup;
+
     constructor(private authService: AuthService,
                 private loaderBlockService: LoaderBlockService,
-                private router: Router) {
+                private router: Router,
+                private formBuilder: FormBuilder,
+                private changeDetector: ChangeDetectorRef) {
+
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
     }
 
-    public login(username: HTMLInputElement, password: HTMLInputElement): void {
-        this.authService.login(username.value, password.value)
+    public login(): void {
+        const formModel = this.loginForm.value;
+        this.authService.login(formModel.username, formModel.password)
             .subscribe(
                 (user: any) => {
                     this.router.navigate(['/courses']);
                     this.loaderBlockService.stop()
                 },
-                () => {
-                    console.error('error');
+                (error) => {
+                    console.error(error);
+                    this.changeDetector.detectChanges();
                     this.loaderBlockService.stop()
                 },
                 () => {

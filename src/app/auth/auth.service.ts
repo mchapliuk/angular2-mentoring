@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { UserInfo } from '../core';
 
@@ -15,7 +13,9 @@ const LOGIN_LS_KEY = 'mch_login';
 const LOGIN_URL = `${BASE_API_URL}/auth/login`;
 const USER_URL = `${BASE_API_URL}/auth/userinfo`;
 
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 /**
  * AuthService managed authentication
@@ -37,9 +37,7 @@ export class AuthService {
             localStorage.setItem(LOGIN_LS_KEY, user.token);
             this.setIsLoggedIn(true);
             return user.token
-        })/*.flatMap(() => {
-            return this.http.get(USER_URL).map((userResponse: Response) => userResponse.json())
-        })*/
+        }).catch((error: Response) => Observable.throw(error.json()));
     }
 
     public logoff(): void {

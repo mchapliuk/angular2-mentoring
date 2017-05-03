@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from '@angular/material';
 import { HttpModule, ConnectionBackend, RequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule  } from '@angular/forms';
 
 
 // Feature modules
@@ -31,13 +32,13 @@ import { AuthGuard } from "./guards/auth.guard";
 import { AuthResolver } from "./guards/auth.resolver";
 import AuthHttp from "./core/http-interceptor.service";
 
-
 @NgModule({
     imports: [
         BrowserModule,
         CoursesModule,
         MaterialModule,
         HttpModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(ROUTES)
     ],
     declarations: [

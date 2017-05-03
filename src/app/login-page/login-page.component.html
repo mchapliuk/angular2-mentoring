@@ -1,16 +1,16 @@
 <my-header></my-header>
 <div class="login-page">
-    <form class="login-form">
+    <form [formGroup]="loginForm" novalidate class="login-form" (ngSubmit)="login()">
         <div class="login">
             <label for="username">Login</label>
-            <input type="text" class="username" id="username" #username/>
+            <input type="text" class="username" id="username" formControlName="username"/>
         </div>
         <div class="password">
             <label for="password">Password</label>
-            <input type="password" id="password" class="password" #password/>
+            <input type="password" id="password" class="password" formControlName="password"/>
         </div>
         <div class="submit">
-            <button type="button" md-b (click)="login(username, password)">Log In</button>
+            <button type="submit" [disabled]="!loginForm.valid">Log In</button>
         </div>
     </form>
 </div>
