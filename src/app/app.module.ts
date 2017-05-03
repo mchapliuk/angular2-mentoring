@@ -26,11 +26,11 @@ import { LoaderBlockService, LoaderBlockComponent } from './loader-block';
 
 // Routes
 import { ROUTES } from './app.routes';
-import { AuthorizedHttp } from './core/authorized-http.service';
 
-import { AuthGuard } from "./guards/auth.guard";
-import { AuthResolver } from "./guards/auth.resolver";
-import AuthHttp from "./core/http-interceptor.service";
+import { AuthGuard } from './guards/auth.guard';
+import { AuthResolver } from './guards/auth.resolver';
+import AuthHttp from './core/http-interceptor.service';
+import NotFoundComponent from './not-found.component';
 
 @NgModule({
     imports: [
@@ -49,7 +49,8 @@ import AuthHttp from "./core/http-interceptor.service";
         UserInfoComponent,
         LoginPageComponent,
         CoursesPageComponent,
-        LoaderBlockComponent
+        LoaderBlockComponent,
+        NotFoundComponent
     ],
     providers: [
         AuthService,
