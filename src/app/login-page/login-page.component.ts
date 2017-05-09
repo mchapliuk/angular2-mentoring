@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { UserInfo } from '../core';
 import { LoaderBlockService } from '../loader-block/loader-block.service';
+import AuthHttp from "../core/http-interceptor.service";
 
 @Component({
     selector: 'login-page',
@@ -20,7 +21,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
                 private loaderBlockService: LoaderBlockService,
                 private router: Router,
                 private formBuilder: FormBuilder,
-                private changeDetector: ChangeDetectorRef) {
+                private changeDetector: ChangeDetectorRef,
+                private authHttp: AuthHttp) {
 
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -32,7 +34,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         const formModel = this.loginForm.value;
         this.authService.login(formModel.username, formModel.password)
             .subscribe(
-                (user: any) => {
+                (token: string) => {
                     this.router.navigate(['/courses']);
                     this.loaderBlockService.stop()
                 },
@@ -45,7 +47,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
                     console.log('DOne');
                     this.loaderBlockService.stop()
                 }
-            )
+            );
     }
 
     ngOnInit(): void {
@@ -55,5 +57,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.loaderBlockService.stop();
         console.log('LOGIN PAGE: Login Page destroyed');
+    }
+
+    private getUserInfo(): void {
+        //this.authHttp.request()
     }
 }

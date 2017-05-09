@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'course-date',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
 })
 
 export class CourseDateComponent {
+    @Input()
+    date: string;
 }

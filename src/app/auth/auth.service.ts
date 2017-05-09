@@ -28,7 +28,7 @@ export class AuthService {
         this.isLoggedIn = !!localStorage[LOGIN_LS_KEY];
     }
 
-    public login(login: string, password: string): Observable<Subscription> {
+    public login(login: string, password: string): Observable<String> {
         return this.http.post(LOGIN_URL, {
             login,
             password
@@ -36,14 +36,13 @@ export class AuthService {
             let user = res.json();
             localStorage.setItem(LOGIN_LS_KEY, user.token);
             this.setIsLoggedIn(true);
-            return user.token
+            return user.token;
         }).catch((error: Response) => Observable.throw(error.json()));
     }
 
     public logoff(): void {
         localStorage.removeItem(LOGIN_LS_KEY);
     }
-
 
     private setIsLoggedIn(value: boolean): void {
         this.isLoggedIn = value;
