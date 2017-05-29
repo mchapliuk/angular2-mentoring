@@ -1,0 +1,9 @@
+.row {
+    display: table-row;
+}
+
+.row label,
+.row input,
+.row textarea {
+    display: table-cell;
+}

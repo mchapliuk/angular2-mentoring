@@ -7,6 +7,8 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { Course } from '../course.interface';
 import { CoursesService } from '../courses.service';
 import { LoaderBlockService } from '../../loader-block/loader-block.service';
@@ -26,13 +28,14 @@ export class CoursesComponent implements OnInit {
 
     constructor(private coursesService: CoursesService,
                 private loaderBlockService: LoaderBlockService,
-                private changeDetector: ChangeDetectorRef) {
+                private changeDetector: ChangeDetectorRef,
+    private router: Router) {
     }
 
     ngOnInit(): void {
         this.coursesService
             .getCourses()
-            .subscribe((courses: Course[])=> {
+            .subscribe((courses: Course[]) => {
                 this.courses = courses;
                 this.changeDetector.detectChanges();
             });
@@ -41,10 +44,10 @@ export class CoursesComponent implements OnInit {
     public loadMoreCourses(): void {
         this.coursesService
             .getNextCourses()
-            .subscribe((courses: Course[])=> {
+            .subscribe((courses: Course[]) => {
                 this.courses = this.courses.concat(courses);
                 this.changeDetector.detectChanges();
-            })
+            });
     }
 
     public deleteCourse(id: number): void {
@@ -57,7 +60,7 @@ export class CoursesComponent implements OnInit {
                             this.courses = courses;
                             this.changeDetector.detectChanges();
                         });
-                })
+                });
         } else {
             console.log('Removing was canceled');
         }
@@ -66,11 +69,15 @@ export class CoursesComponent implements OnInit {
     public searchCourse(): void {
         this.coursesService
             .findCourses(this.searchName)
-            .subscribe((courses: Course[])=> {
+            .subscribe((courses: Course[]) => {
                 this.courses = courses;
                 this.changeDetector.detectChanges();
             });
 
         this.searchName = '';
+    }
+
+    public addCourse(): void {
+        this.router.navigate(['/courses/new']);
     }
 }

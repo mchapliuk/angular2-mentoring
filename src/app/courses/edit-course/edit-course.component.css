@@ -11,3 +11,12 @@ form {
 .row textarea {
     display: table-cell;
 }
+
+.row button {
+    margin: 20px;
+}
+
+.validation-error {
+    color: darkred;
+    font-size: 0.7em;
+}

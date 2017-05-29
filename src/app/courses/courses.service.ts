@@ -34,6 +34,19 @@ export class CoursesService {
         return this.fetchCourses();
     }
 
+    public getCourse(id: number|string): Observable<Course> {
+        let options = new RequestOptions();
+        options.method = RequestMethod.Get;
+        options.url = COURSES_URL + '/' + id;
+
+
+        let request = new Request(options);
+
+        return this.http
+            .request(request)
+            .map((res: Response) => res.json() as Course);
+    }
+
     public getNextCourses(): Observable<Course[]> {
         this.pageNum++;
         return this.fetchCourses();
@@ -57,6 +70,7 @@ export class CoursesService {
             .request(request)
             .map((res: Response) => res.json() as Course[]);
     }
+
 
     public deleteCourse(id: string|number): Observable<Course[]> {
         let options = new RequestOptions();
@@ -86,15 +100,18 @@ export class CoursesService {
             .map((res: Response) => res.json());
     }
 
-    public goToAddCourse(): void {
-        this.isEditingMode = true;
-    }
-
-    public cancelEditing(): void {
-        this.isEditingMode = false;
-    }
-
     public getIsEditingMode(): boolean {
         return this.isEditingMode;
+    }
+
+    public saveCourse(data: any): Observable<any> {
+        let options = new RequestOptions();
+        options.method = RequestMethod.Post;
+        options.url = COURSES_URL;
+        options.body = data || {};
+
+        return this.http
+            .request(new Request(options))
+            .map((res: Response) => res.json());
     }
 }

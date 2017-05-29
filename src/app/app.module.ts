@@ -1,9 +1,11 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from '@angular/material';
+import {
+    MdButtonModule,
+    MdInputModule} from '@angular/material';
 import { HttpModule, ConnectionBackend, RequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule  } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
 
 
 // Feature modules
@@ -29,6 +31,7 @@ import { ROUTES } from './app.routes';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AuthResolver } from './guards/auth.resolver';
+import { CourseDetailsResolveService } from './courses/course.resolver';
 import AuthHttp from './core/http-interceptor.service';
 import NotFoundComponent from './not-found.component';
 
@@ -36,9 +39,11 @@ import NotFoundComponent from './not-found.component';
     imports: [
         BrowserModule,
         CoursesModule,
-        MaterialModule,
+        MdButtonModule,
+        MdInputModule,
         HttpModule,
         ReactiveFormsModule,
+        FormsModule,
         RouterModule.forRoot(ROUTES)
     ],
     declarations: [
@@ -58,6 +63,7 @@ import NotFoundComponent from './not-found.component';
         AuthResolver,
         AuthHttp,
         LoaderBlockService,
+        CourseDetailsResolveService
     ],
     bootstrap: [AppComponent]
 })

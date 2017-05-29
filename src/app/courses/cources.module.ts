@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, NgModel, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Components
 import { CourseDetailComponent }  from './detail/course-detail.component';
@@ -11,23 +12,20 @@ import { CourseDurationComponent } from './edit-course/course-duration/course-du
 
 
 // Directives
-import { HighlightCourseDirective } from "./highlight-course.directive";
+import { HighlightCourseDirective } from './highlight-course.directive';
 
 // Services
 import { CoursesService } from './courses.service';
-
-// Interfaces
-import { Course } from './course.interface';
 
 // Pipes
 import {
     FormatMinutesPipe,
     OrderByPipe
 } from '../core';
-import { FindCoursePipe } from "../core/find-course.pipe";
+import { FindCoursePipe } from '../core/find-course.pipe';
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
     declarations: [
         CoursesComponent,
         CourseDetailComponent,

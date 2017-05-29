@@ -1,15 +1,17 @@
-<form>
+<form novalidate [formGroup]="editCourseForm" (ngSubmit)="save(editCourseForm.value)">
     <div class="row">
         <label for="title">Title</label>
-        <input type="text" id="title"/>
+        <input type="text" id="title" formControlName="title"/>
+        <div class="validation-error" *ngIf="editCourseForm.controls.title.errors">Max 50 symbols allowed!</div>
+    </div>
+    <div class="row">
+
+        <course-date formControlName="date"></course-date>
     </div>
     <div class="row">
         <label for="description">Description</label>
-        <textarea name="description" id="description" cols="30" rows="10"></textarea>
-    </div>
-    <div class="row">
-        <label>Date</label>
-        <course-date></course-date>
+        <textarea name="description" id="description" cols="30" rows="10" formControlName="description"></textarea>
+        <div class="validation-error" *ngIf="editCourseForm.controls.description.errors">Max 500 symbols allowed!</div>
     </div>
     <div class="row">
         <label>Duration</label>
@@ -21,7 +23,7 @@
         <!--<course-authors></course-authors>-->
     <!--</div>-->
     <div class="row">
-        <button>Save</button>
+        <button [disabled]="!editCourseForm.valid">Save</button>
         <button (click)="cancel()">Cancel</button>
     </div>
 </form>

@@ -17,10 +17,6 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
         this.changeDetector.markForCheck();
     }
 
-    public getIsEditingMode(): boolean {
-        return this.coursesService.getIsEditingMode();
-    }
-
     ngOnInit(): void {
         console.log('Courses Page initialized');
     }
